@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from users.forms import profileUpdateForm, userUpdateForm
 from users.models import Profile as Pro
-from users.models import  Kerkesat
+from users.models import  TutorRequest
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
@@ -37,7 +37,7 @@ def Profile(request):
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            messages.success(request, 'Llogaria juaj u perditsua me sukses!')
+            messages.success(request, 'Your account was successfully updated!')
             return redirect('users:profile')
     else:
         u_form = userUpdateForm(instance=request.user)
@@ -52,33 +52,33 @@ def Profile(request):
     return render(request,'profile/profile.html',context)
 
 
-def kerkesa(request):
+def TutorRequest(request):
     if request.method == 'POST':
         emri = request.POST.get('name')
         email = request.POST.get('e-mail')
         numri_tel = request.POST.get('phone')
         prof = request.user.profile
-        kerkesa = Kerkesat(profili=prof, emri=emri, email=email, numri_tel=numri_tel)
+        kerkesa = TutorRequest(profili=prof, emri=emri, email=email, numri_tel=numri_tel)
         kerkesa.save()
         prof_id = prof.id
         Pro.objects.filter(id=prof_id).update(is_teacher=True)
         
-        message = 'Kerkesa juaj per nje llogari mesuesi u pranua! Tani ju mund te ktheheni tek MesoOn dhe te ngarkoni kurse dhe leksione, pune te mbare!'
+        message = 'Your request for a teacher account has been accepted! Now you can return to Nkay Study and upload courses and lectures, completed work!'
         send_mail(
-            'MesoOn, kerkesa u pranua.',
+            'Nkay Study, request accepted.',
             message,
-            'mesoon@no-reply.com',
+            'japhethhlordjie@gmail.com',
             [email],
             fail_silently=False,
         )
         send_mail(
-            'MesoOn',
-            'Dikush beri kerkese per llogari mesuesi. Me info: ' + emri + ' , ' + email + ' , ' + numri_tel + ' , ' + str(prof) + '.',
-            'mesoon@no-reply.com',
-            ['redian1marku@gmail.com'],
+            'Nkay',
+            'Someone made a request for the teacher''s account. With info: ' + emri + ' , ' + email + ' , ' + numri_tel + ' , ' + str(prof) + '.',
+            'japhethhlordjie@gmail.com',
+            ['japhethhlordjie@gmail.com'],
             fail_silently=False,
         )
-        messages.info(request, f'Kerkesa u dergua me sukses, ju do te njoftoheni me email.')
+        messages.info(request, f'The request was sent successfully, you will be notified by email.')
         return redirect('courses:home')
 
 

@@ -2256,13 +2256,13 @@ fieldset:disabled a.btn {
 
 .btn-primary {
   color: #fff;
-  background-color: #e1691d;
-  border-color: #b65416;
+  background-color: #ffc107;
+  border-color: #ffc105;
 }
 
 .btn-primary:hover {
   color: #fff;
-  background-color: #b65416;
+  background-color: #efc109;
   border-color: #e1691d;
 }
 
@@ -9662,7 +9662,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 #mainNav .navbar-nav li.nav-item a.nav-link.active {
-  color: #e1691d  ;
+  color: #ffc107;
 }
 
 #mainNav .navbar-toggler {

@@ -9,36 +9,36 @@ class KlasaForm(forms.ModelForm):
         model = Klasa
         fields = '__all__'
         help_texts = {
-            'titulli': 'Psh. Klasa 11 ose Klasa e Informatikes',
-            'pershkrimi':'Vendos nje pershkrim te shkurte te klases',
-            'imazhi':'Mund te vendosesh nje fotografi e klases ose mund te lihet bosh'
+            'title': 'The title name of the program goes here. It should have the level attached if necessary. For example: Computer Engineering 2',
+            'description':'Enter a short description of the program',
+            'image':'You can put a picture of the program or you can leave it blank'
         }
 
 class LendaForm(forms.ModelForm):
     class Meta:
         model = Lendet
-        fields = ['krijues','slug', 'titulli', 'klasa', 'pershkrimi', 'imazhi_lendes']
+        fields = ['creator','slug', 'title', 'program', 'description', 'course_image']
         help_texts = {
-            'titulli': 'Psh. Matematika, Gjeografi etj',
-            'pershkrimi':'Vendos nje pershkrim te shkurte te lendes',
-            'klasa':'Zhgjidhni klasen per te cilen do te krijoni lenden',
-            'imazhi_lendes':'Mund te vendosesh nje fotografi e lendes ose mund te lihet bosh'
+            'title': 'The title name of the course under selected program goes here',
+            'description':'Enter a short description of the program',
+            'program':'Select the program for which you will create the course',
+            'course_image':'You can put a picture of the course or you can leave it blank'
         }
         labels = {
-            'titulli':'Titulli i lendes'
+            'title':'Title of the course'
         }
-        widgets = {'krijues': forms.HiddenInput(), 'slug': forms.HiddenInput()}
+        widgets = {'creator': forms.HiddenInput(), 'slug': forms.HiddenInput()}
 
 
 class MesimiForm(forms.ModelForm):
     class Meta:
         model = Lesson 
-        fields = ['slug','titulli', 'lenda', 'video_id', 'pozicioni', ]
+        fields = ['slug','title', 'course', 'video_id', 'position', ]
         help_texts = {
-            'titulli':'Vendosni titullin e mesimit',
-            'lenda':'Zgjidhni lenden per te cilen i perket ky mesim',
-            'video_id':'Vendosni ID e videos nga Youtube te cilen do te ngarkoni (<a href="/media/youtube_help.png">ku mund ta gjej ID</a>)',
-            'pozicioni':'Vendosni numrin e pozicionit ose radhen e mesimit '
+            'title':'Enter the title of the lesson',
+            'course':'Choose the course to which this lesson belongs',
+            'video_id':'Enter the ID of the video from YouTube that you will upload (<a href="/media/youtube_help.png">where can I find the ID</a>)',
+            'position':'Enter the position number or teaching sequence'
         }
         widgets = {
             'slug': forms.HiddenInput()

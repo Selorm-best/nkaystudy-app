@@ -4,24 +4,24 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 class Klasa(models.Model):
-    titulli = models.CharField(max_length=150)
-    pershkrimi = models.TextField(max_length= 200, null=True)
-    imazhi = models.ImageField(upload_to='cat_images', default='cat_images/default.jpg')
+    title = models.CharField(max_length=150)
+    description = models.TextField(max_length= 200, null=True)
+    image = models.ImageField(upload_to='cat_images', default='cat_images/default.jpg')
 
     def __str__(self):
-        return '{}'.format(self.titulli)
+        return '{}'.format(self.title)
 
 class Lendet(models.Model):
-    krijues = models.ForeignKey(User,on_delete = models.CASCADE)
+    creator = models.ForeignKey(User,on_delete = models.CASCADE)
     slug = models.SlugField()
-    titulli = models.CharField(max_length=30)
-    klasa = models.ForeignKey(Klasa,on_delete=models.CASCADE)
-    pershkrimi = models.TextField(max_length=400)
-    krijuar_me = models.DateTimeField(auto_now=True)
-    imazhi_lendes = models.ImageField(upload_to='kurs_images', default='default.jpg')
+    title = models.CharField(max_length=30)
+    program = models.ForeignKey(Klasa,on_delete=models.CASCADE)
+    description = models.TextField(max_length=400)
+    created_on = models.DateTimeField(auto_now=True)
+    course_image = models.ImageField(upload_to='kurs_images', default='default.jpg')
 
     def __str__(self):
-        return self.titulli
+        return self.title
 
     def get_absolute_url(self):
         return reverse("courses:course_detail", kwargs={"slug": self.slug})
@@ -31,20 +31,20 @@ class Lendet(models.Model):
 
     @property
     def lessons(self):
-        return self.lesson_set.all().order_by('pozicioni')
+        return self.lesson_set.all().order_by('position')
 
 
 
 
 class Lesson(models.Model):
     slug = models.SlugField()
-    titulli = models.CharField(max_length=30)
-    lenda = models.ForeignKey(Lendet,on_delete=models.CASCADE)
+    title = models.CharField(max_length=30)
+    course = models.ForeignKey(Lendet,on_delete=models.CASCADE)
     video_id = models.CharField(max_length=11)
-    pozicioni = models.IntegerField()
+    position = models.IntegerField()
 
     def __str__(self):
-        return self.titulli
+        return self.title
 
     def get_absolute_url(self):
-        return reverse("courses:lesson_detail", kwargs={"course_slug": self.lenda.slug,'lesson_slug':self.slug})
+        return reverse("courses:lesson_detail", kwargs={"lenda_slug": self.course.slug,'lesson_slug':self.slug})

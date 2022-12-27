@@ -26,11 +26,11 @@ class PostDetailView(DetailView):
 
 def create_post(request):
     if request.method == 'POST':
-        titulli = request.POST.get('title')
-        permbajtja = request.POST.get('text')
-        postim = Post(title=titulli, text=permbajtja, author=request.user)
-        postim.save()
-        messages.success(request, f'Postimi u krijua me sukses.')
+        title = request.POST.get('title')
+        content = request.POST.get('text')
+        post = Post(title=title, text=content, author=request.user)
+        post.save()
+        messages.success(request, f'Your Post has been created successfuly')
         return redirect('blogs:post_list')
     return render(request, 'blog/create_post.html')
 
