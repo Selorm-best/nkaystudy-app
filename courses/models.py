@@ -47,4 +47,4 @@ class Lesson(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("courses:lesson_detail", kwargs={"lenda_slug": self.course.slug,'lesson_slug':self.slug})
+        return reverse("courses:lesson_detail", kwargs={"course_slug": self.course.slug,'lesson_slug':self.slug})

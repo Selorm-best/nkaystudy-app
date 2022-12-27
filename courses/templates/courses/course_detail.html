@@ -22,14 +22,14 @@
   <div class="container">
     <div class="search-warp">
       <div class="section-title text-white">
-        <h2><span>Look for Courses</span></h2>
+        <h2><span>Look for Lessons</span></h2>
       </div>
       <div class="row">
         <div class="col-lg-10 offset-lg-1">
           <!-- search form -->
           <form method="post" action="{% url 'courses:kerko_kurs' %}" class="intro-newslatter"> {% csrf_token %}
-            <input name="search" type="text" placeholder="Look for Courses">
-            <button type="submit" class="site-btn btn-dark">Search course</button>
+            <input name="search" type="text" placeholder="Look for Lessons in the Course">
+            <button type="submit" class="site-btn btn-dark">Search Lesson</button>
           </form>
         </div>
       </div>
@@ -50,8 +50,8 @@
           <div class="course-metas">
             <div class="course-meta">
               <div class="course-author">
-                <h6>Mesuesi</h6>
-                <p>{{course.creator|capfirst}}, <span>Mesues</span></p> <!--course.creator-->
+                <h6>Tutor</h6>
+                <p>{{course.creator|capfirst}}, <span>Tutor</span></p> <!--course.creator-->
               </div>
             </div>
             <div class="course-meta">
@@ -62,13 +62,13 @@
             </div>
             <div class="course-meta">
               <div class="cm-info">
-                <h6>Description of Program</h6>
+                <h6>Description of Course</h6>
                 <p>{{course.description}}</p> <!--course.description-->
               </div>
             </div>
             <div class="course-meta">
               <div class="cm-info">
-                <h6>Number of Courses</h6>
+                <h6>Number of Lessons</h6>
                 <p>{{ course.lessons|length }}</p> <!--course.lessons/course-->
               </div>
             </div>
@@ -86,7 +86,7 @@
           {% if course.lessons != None  %}
             {% for lesson in course.lessons %}
             <div data-aos="fade-right" >
-              <h5 class="pb-3">Mesimi {{lesson.position}} <a id="vazhdo" href="{{ lesson.get_absolute_url }}#video"><span class="pl-4">{{lesson.titulli}}</span></a></h5>
+              <h5 class="pb-3">Lesson{{lesson.position}} <a id="vazhdo" href="{{ lesson.get_absolute_url }}#video"><span class="pl-4">{{lesson.title}}</span></a></h5>
             </div>
             {% endfor %}
           {% endif %}

@@ -49,13 +49,13 @@
             <div class="course-info">
               <div class="course-text">
                 <h5>{{course.klasa}}</h5>
-                <a href="{% url 'courses:course_detail' course.slug %}"><h3 class="">{{course.titulli|capfirst}}</h3></a>
-                <p>{{course.pershkrimi}}</p>
+                <a href="{% url 'courses:course_detail' course.slug %}"><h3 class="">{{course.title|capfirst}}</h3></a>
+                <p>{{course.description}}</p>
                 <div class="students"><a href="{% url 'courses:course_detail' course.slug %}" class="btn btn-primary">Program Courses</a></div>
               </div>
               <div class="course-author">
                 <div class="ca-pic set-bg" data-setbg="{{ request.user.profile.profile_pic.url }}"></div>
-                <p>Created by : {{course.krijues|capfirst}}, <span>Tutor </span></p>
+                <p>Created by : {{course.creator|capfirst}}, <span>Tutor </span></p>
               </div>
             </div>
           </div>

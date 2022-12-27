@@ -113,8 +113,8 @@ def krijo_mesim(request):
         form = MesimiForm(request.POST)
         if form.is_valid():
             form.save()
-            lenda = form.cleaned_data['lenda']
-            slug = lenda.slug
+            lenda = form.cleaned_data['course']
+            slug = lenda.slug 
             messages.success(request, f'Lesson has been created')
             return redirect('/courses/' + str(slug) )
     else:
