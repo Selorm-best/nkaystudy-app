@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import KlasaForm, LendaForm, MesimiForm
+from PIL import Image
 # Create your views here.
 
 class HomeView(TemplateView):
@@ -134,6 +135,13 @@ def view_403(request, exception):
 def view_500(request):
     return render(request, '500.html')
 
+@login_required
+def youtube_help(request):
+    img = 'media/youtube_help.png'
+    context = {
+        'image':img
+    }
+    return render(request, 'courses/youtube_help.html', context)
 # def get(self,request,course_slug,lesson_slug,*args,**kwargs):
 #
 #     course_qs = Course.objects.filter(slug=course_slug)

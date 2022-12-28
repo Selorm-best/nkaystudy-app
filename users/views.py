@@ -52,33 +52,39 @@ def Profile(request):
     return render(request,'profile/profile.html',context)
 
 
-def TutorRequest(request):
+def TutorRegister(request):
     if request.method == 'POST':
+        code_bank = ['23456','34567','34980','5674']
         emri = request.POST.get('name')
         email = request.POST.get('e-mail')
         numri_tel = request.POST.get('phone')
+        code = request.POST.get('code')
         prof = request.user.profile
         kerkesa = TutorRequest(profili=prof, emri=emri, email=email, numri_tel=numri_tel)
         kerkesa.save()
         prof_id = prof.id
-        Pro.objects.filter(id=prof_id).update(is_teacher=True)
+        if code in code_bank:
+            Pro.objects.filter(id=prof_id).update(is_teacher=True)
         
-        message = 'Your request for a teacher account has been accepted! Now you can return to Nkay Study and upload courses and lectures, completed work!'
-        send_mail(
-            'Nkay Study, request accepted.',
-            message,
-            'japhethhlordjie@gmail.com',
-            [email],
-            fail_silently=False,
-        )
-        send_mail(
-            'Nkay',
-            'Someone made a request for the teacher''s account. With info: ' + emri + ' , ' + email + ' , ' + numri_tel + ' , ' + str(prof) + '.',
-            'japhethhlordjie@gmail.com',
-            ['japhethhlordjie@gmail.com'],
-            fail_silently=False,
-        )
-        messages.info(request, f'The request was sent successfully, you will be notified by email.')
-        return redirect('courses:home')
+            message = 'Your request for a teacher account has been accepted! Now you can return to Nkay Study and upload courses and lectures, completed work!'
+            send_mail(
+                'Nkay Study, request accepted.',
+                message,
+                'japhethhlordjie@gmail.com',
+                [email],
+                fail_silently=False,
+            )
+            send_mail(
+                'Nkay',
+                'Someone made a request for the teacher''s account. With info: ' + emri + ' , ' + email + ' , ' + numri_tel + ' , ' + str(prof) + '.',
+                'japhethhlordjie@gmail.com',
+                ['japhethhlordjie@gmail.com'],
+                fail_silently=False,
+            )
+            messages.info(request, f'The request was sent successfully, you will be notified by email.')
+            return redirect('courses:home')
+        else:
+            messages.info(request, f'The code is incorrect')
+            return redirect('courses:home')
 
 

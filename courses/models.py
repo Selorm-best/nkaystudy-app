@@ -19,7 +19,7 @@ class Lendet(models.Model):
     description = models.TextField(max_length=400)
     created_on = models.DateTimeField(auto_now=True)
     course_image = models.ImageField(upload_to='kurs_images', default='default.jpg')
-
+    course_books_link =models.CharField(max_length=100,default='null')
     def __str__(self):
         return self.title
 
